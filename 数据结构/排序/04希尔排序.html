@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class ArrayList {
+      constructor () {
+        this.array = []
+      }
+
+      insert (item) {
+        this.array.push(item);
+      }
+
+      toString () {
+        return this.array.join('-')
+      }
+
+      //  希尔排序
+      shellSort () {
+        let length = this.array.length;
+        //  初始化增量
+        let gap = Math.floor(length / 2)
+        //  gap不断减小
+        while (gap >= 1) {
+          for (let i = gap; i < length; i ++) {
+            let temp = this.array[i];
+            let j = i;
+            while (this.array[j - gap] > temp && j > gap - 1) {
+              this.array[j] = this.array[j - gap]
+              j -= gap
+            }
+            //  将j元素位置的元素赋值temp
+            this.array[j] = temp;
+          }
+          gap = Math.floor(gap / 2)
+        }
+      }
+    }
+
+    let a = new ArrayList()
+    a.insert(12)
+    a.insert(8)
+    a.insert(102)
+    a.insert(60)
+    a.insert(50)
+    alert(a.toString())
+
+    a.shellSort()
+    alert(a.toString())
+
+  </script>
+</body>
+</html>

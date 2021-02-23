@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图结构</title>
+  <script src="./dict.js"></script>
+</head>
+<body>
+  <script>
+    class Graph {
+      constructor() {
+        //  存储顶点
+        this.vertexes = []
+        this.adjList = new Dictionay
+      } 
+
+      //  添加顶点
+      addVertex(v) {
+        this.vertexes.push(v);
+        this.adjList.set(v, [])
+      }
+      
+      //  添加边
+      addEdge(v, w) {
+        this.adjList.get(v).push(w)
+        this.adjList.get(w).push(v)
+      }
+
+      toString() {
+        let resultStr = ""
+        for (let i = 0; i < this.vertexes.length; i ++) {
+          resultStr += this.vertexes[i] + "->"
+          let adj = this.adjList.get(this.vertexes[i])
+          for (let j = 0; j < adj.length; j ++) {
+            resultStr += adj[j] + ""
+          }
+          resultStr += "\n"
+        }
+        return resultStr
+      }
+    }
+
+    let graph = new Graph();
+    let myVettexes = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+    for (let i = 0; i < myVettexes.length; i ++) {
+      graph.addVertex(myVettexes[i]);
+    }
+
+    // 添加边
+    graph.addEdge('A', 'B');
+    graph.addEdge('A', 'C');
+    graph.addEdge('A', 'D');
+    graph.addEdge('C', 'D');
+    graph.addEdge('C', 'G');
+    graph.addEdge('D', 'G');
+    graph.addEdge('D', 'H');
+    graph.addEdge('B', 'E');
+    graph.addEdge('B', 'F');
+    graph.addEdge('E', 'I');
+
+    let res = graph.toString();
+    console.log(res);
+  </script>
+</body>
+</html>

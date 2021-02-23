@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <img src="../img/logo.png" alt="" width="100%">
+  <button style="border: none;outline:none;">我是button</button>
+  <input style="border: none;outline:none;" type="submit" value="我是input"/>
+  <script>
+    class ArrayList {
+      constructor () {
+        this.array = []
+      }
+
+      insert (item) {
+        this.array.push(item);
+      }
+
+      toString () {
+        return this.array.join('-')
+      }
+
+      //  插入排序  局部排序思想
+      insertionSort () {
+        let length = this.array.length;
+        //  外层循环 默认第一个元素已经排好序
+        //  向前面局部有序插入数据
+        for (let i = 1; i < length; i ++) {
+          let temp = this.array[i]
+          let j = i
+          while (this.array[j - 1] > temp && j > 0) {
+            //  对当前元素前面的元素进行局部排序
+            //  如果大于就交换位置
+            this.array[j] = this.array[j - 1]
+            j --
+          }
+          this.array[j] = temp
+        }
+      }
+    }
+
+    let a = new ArrayList()
+    a.insert(12)
+    a.insert(8)
+    a.insert(102)
+    a.insert(60)
+    a.insert(50)
+    // alert(a.toString())
+    // a.insertionSort()
+    // alert(a.toString())
+  </script>
+</body>
+</html>

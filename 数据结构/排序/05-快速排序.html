@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+        class ArrayList {
+      constructor () {
+        this.array = []
+      }
+
+      insert (item) {
+        this.array.push(item);
+      }
+
+      toString () {
+        return this.array.join('-')
+      }
+
+      swap (left, right) {
+        let temp = this.array[left]
+        this.array[left] = this.array[right]
+        this.array[right] = temp
+      }
+      //  快速排序
+      quickSort () {
+        this.quick(0, this.array.length - 1)
+      }
+      quick (left, right) {
+        //  结束条件
+        if (left >= right) return
+
+        //  获取枢纽
+        let pivot = this.median(left, right)
+
+        //  定义变量，记录当前找到的位置
+        let i = left;
+        let j = right - 1;
+
+        //  开始操作
+        while (true) {
+          //  从左开始判断 是否小于中位数 如果小于 继续循环 i ++ 
+          while (this.array[++i] < pivot) {}
+          //  从右开始判断 是否大于中位数 如果大于 继续循环 j -- 
+          while (this.array[--J] > pivot) {}
+          if (i < j) {
+            this.swap(i, j)
+          } else {
+            break
+          }
+        }
+        
+        // 将枢纽放在i的位置
+        this.swap(i, right - 1)
+
+        //  分而治之
+        this.quick(left, i - 1)
+        this.quick(i + 1, right)
+      }
+      //  选择枢纽
+      median (left, right) {
+        //  求出中间的位置
+        let center = Math.floor(left + right) / 2
+        //  判断并且进行交换
+        if (this.array[left] > this.array[center]) {
+          this.swap(left, center)
+        }
+        if (this.array[center] > this.array[right]) {
+          this.swap(center, right)
+        }
+        if (this.array[left] > this.array[right]) {
+          this.swap(left, right)
+        }
+        //  巧妙地操作 将center移动到right - 1的位置
+        this.swap(center, right - 1);
+        //  返回枢纽
+        return this.array[right - 1]
+      }
+    }
+
+    let a = new ArrayList()
+    a.insert(12)
+    a.insert(8)
+    a.insert(102)
+    a.insert(60)
+    a.insert(50)
+    alert(a.toString())
+    let pivot = a.median(0, 4)
+    alert(pivot)
+    alert(a.toString())
+  </script>
+</body>
+</html>

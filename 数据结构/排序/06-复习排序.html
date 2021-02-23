@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class ArrayList {
+      constructor () {
+        this.array = []
+      }
+
+      insert (item) {
+        this.array.push(item);
+      }
+
+      toString () {
+        return this.array.join('-')
+      }
+
+      swap (left, right) {
+        let temp = this.array[left]
+        this.array[left] = this.array[right]
+        this.array[right] = temp
+      }
+
+      //  冒泡排序
+      bubbleSort () {
+        let length = this.array.length
+        for (let i = 0; i < length - 1; i ++) {
+          for (let j = i; j < length - 1 - i; j ++) {
+            if (this.array[j] > this.array[j + 1]) {
+              this.swap(j, j + 1)
+            }
+          }
+        }
+      }
+
+      //  选择排序
+      selectSort () {
+        let length = this.array.length
+        for (let i = 0; i < length - 1; i ++) {
+          let minIndex = i
+          for (let j = i + 1; j < length; j ++) {
+            if (this.array[minIndex] > this.array[j]) {
+              minIndex = j
+            }
+          }
+          this.swap(i, minIndex)
+        }
+      }
+    }
+
+    let a = new ArrayList()
+    a.insert(12)
+    a.insert(8)
+    a.insert(102)
+    a.insert(60)
+    a.insert(50)
+    alert(a.toString())
+
+    //  冒泡排序
+    a.selectSort()
+    alert(a.toString())
+
+  </script>
+</body>
+</html>

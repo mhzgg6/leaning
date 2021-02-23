@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class ArrayList {
+      constructor () {
+        this.array = []
+      }
+
+      insert (item) {
+        this.array.push(item);
+      }
+
+      toString () {
+        return this.array.join('-')
+      }
+
+      //  冒泡排序
+      selectSort () {
+        let length = this.array.length;
+        for (let j = 0; j < length - 1; j ++) {
+          let min = j;
+          //  min + 1 开始
+          for (let i = min + 1; i < length; i ++) {
+            if (this.array[min] > this.array[i]) {
+              min = i;
+            }
+          }
+          let tem = this.array[j]
+          this.array[j] = this.array[min]
+          this.array[min] = tem
+        }
+        // this.array[i]
+        //  效率
+        //  N个数据：(N - 1) + (N - 2) + (N - 3) + ... + 1 = N*(N - 1)/2
+        //  根据大O表示法为O(N²)
+      }
+
+
+    }
+
+    let a = new ArrayList()
+    a.insert(20)
+    a.insert(21)
+    a.insert(2)
+    a.insert(25)
+    a.insert(50)
+    // alert(a.toString())
+    // a.selectSort()
+    // alert(a.toString())
+  </script>
+</body>
+</html>

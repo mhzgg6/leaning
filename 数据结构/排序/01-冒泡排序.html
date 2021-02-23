@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class ArrayList {
+      constructor () {
+        this.array = []
+      }
+
+      insert (item) {
+        this.array.push(item);
+      }
+
+      toString () {
+        return this.array.join('-')
+      }
+
+      //  冒泡排序
+      bubblesort () {
+        let length = this.array.length;
+        
+        //  第一次：j = length - 1,比较到倒数第一个位置
+        //  第二次：j = length - 2,比较到倒数第二个位置
+        //  ...
+        for (let j = length - 1; j >= 0; j --) {
+          //  前一项雨后一项进行比较 如果大  进行位置交换
+          for (let i = 0; i < j; i ++) {
+            if (this.array[i] > this.array[i+1]) {
+              let temp = this.array[i]
+              this.array[i] = this.array[i+1]
+              this.array[i+1] = temp
+            }
+          }
+        }
+        //  效率
+        //  N个数据：(N - 1) + (N - 2) + (N - 3) + ... + 1 = N*(N - 1)/2
+        //  根据大O表示法为O(N²)
+      }
+    }
+
+    let a = new ArrayList()
+    a.insert(12)
+    a.insert(8)
+    a.insert(102)
+    a.insert(60)
+    a.insert(50)
+    alert(a.toString())
+
+    //  冒泡排序
+    a.bubblesort()
+    alert(a.toString())
+
+  </script>
+</body>
+</html>
