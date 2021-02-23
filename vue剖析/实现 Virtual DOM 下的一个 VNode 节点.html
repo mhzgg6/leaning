@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //  简单实现VNode类
+    class VNode {
+      constructor (tag, data, children, text, elm) {
+        /* 当前节点的标签名 */
+        this.tag = tag;
+        /* 当前节点的一些数据，如 props、attrs等数据 */
+        this.data = data;
+        /* 当前节点的子节点，是一个数组 */
+        this.children = children;
+        /* 当前节点的文本 */
+        this.text = text;
+        /* 当前虚拟节点对应的真实dom节点 */
+        this.elm = elm;
+      }
+    }
+
+    //  创建一个空节点
+    function createEmptyVNode () {
+      const node = new VNode();
+      node.text = '';
+      return node;
+    }
+
+    //  创建一个文本节点
+    function createTextVNode (val) {
+      return new VNode(undefined, undefined, undefined, String(val));
+    }
+
+    //  克隆一个VNode节点
+    function cloneVNode (node) {
+      const cloneVnode = new VNode(
+        node.tag,
+        node.data,
+        node.children,
+        node.text,
+        node.elm
+      );
+      return cloneVnode;
+    }
+  </script>
+</body>
+</html>
