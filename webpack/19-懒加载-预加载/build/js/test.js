@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[43],{411:function(n,u,e){"use strict";function t(n,u){return n*u}e.r(u),e.d(u,{mul:function(){return t}}),console.log("test.js 被加载了")}}]);
