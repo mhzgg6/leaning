@@ -1,0 +1,1 @@
+console.log('index 文件被加载了');
