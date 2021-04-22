@@ -1,0 +1,1 @@
+console.log("hello"),console.log(new class{constructor(o){this.name=o}}("mao"));

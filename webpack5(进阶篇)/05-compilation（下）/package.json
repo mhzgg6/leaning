@@ -1,0 +1,16 @@
+{
+  "name": "05-compilation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "node --inspect-brk ./node_modules/webpack/bin/webpack.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "schema-utils": "^3.0.0",
+    "webpack": "^5.35.0",
+    "webpack-cli": "^4.6.0"
+  }
+}
