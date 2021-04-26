@@ -8,7 +8,7 @@
       "type": "string"
     },
     "ignore": {
-      "type": "string"
+      "type": "array"
     }
   },
   "additionalProperties": false

@@ -10,8 +10,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       from: 'public',
-      // to: '.',
-      ignore: ['index.html']
+      to: '.',
+      ignore: ['**/index.html']
     })
   ],
   mode: 'production'
