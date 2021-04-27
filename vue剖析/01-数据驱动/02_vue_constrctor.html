@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <div>
+      <div>
+        <p>{{name}}-->{{age}}</p></p>
+      </div>
+    </div>
+    <div>{{name}}</div>
+    <div>{{age}}</div>
+  </div>
+
+  <script>
+    let regkuohao = /\{\{(.+?)\}\}/g;
+
+    //  将数据放到模板中
+    //  当前 template 是DOM元素
+    //  真正的 Vue 源码中是 DOM -> 字符串模板 -> VNode -> 真正DOM
+    function compiler(template, data) { 
+      let childNodes = template.childNodes;//   取出子元素
+      for(let i = 0; i < childNodes.length; i ++) {
+        let type = childNodes[i].nodeType;  //  1 元素，3 文本节点
+        if (type === 3) {
+          //  文本节点，可以判断里面是否有 {{}} 差值
+          let txt = childNodes[i].nodeValue; //   该属性只有文本节点才有意义
+          txt = txt.replace(regkuohao, function(_, g) {
+            let key = g.trim();
+            let value = data[key];
+            return value;
+          })
+          childNodes[i].nodeValue = txt;
+        } else if (type === 1) {
+          //  元素，通过递归判断是否有子元素 是否将其子元素 判断是有 {{}} 值
+          compiler(childNodes[i], data);
+        }
+      }
+    }
+
+    class JGVue {
+      constructor(options) {
+        //  习惯：内部的数据使用 _ 开头 只读数据使用 $ 开头
+        this._data = options.data;
+        this._el = options.el;
+
+        //  准备工作（获取模板）
+        this._templateDOM = document.querySelector(this._el);
+        this._parent = this._templateDOM.parentNode;
+        //  渲染工作
+        this.render();
+      }
+
+      //  将模板集合数据，得到 HTML 加到页面中
+      render() {
+        this.compiler();
+      }
+      //  编译 将模板与数据结合 得到真正的 DOM 元素
+      compiler() {
+        let realHTMLDOM = this._templateDOM.cloneNode(true);//  用 模板 拷贝得到一个准 DOM
+        compiler(realHTMLDOM, this._data);
+        this.update(realHTMLDOM);
+      }
+      //  将 DOM 的元素 放到页面中
+      update(real) {
+        this._parent.replaceChild(real, document.querySelector("#root"));
+      }
+    }
+
+    let app = new JGVue({
+      el: '#root',
+      data: {
+        name: 'mao',
+        age: 18
+      }
+    })
+
+  </script>
+</body>
+</html>

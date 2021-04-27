@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function getValueByPath(obj, path) {
+      //  [xxx, yyy, zzz]
+      let paths = path.split('.');
+      //  先取得 obj.xxx 再取得结果中的 yyy,  ----
+      
+      let res = obj;
+      let prop;
+      while(prop = paths.shift()) {
+        res = res[prop];
+      }
+      return res;
+    }
+
+    let o = {
+      a: {
+        b: {
+          c: {
+            d: {
+              e: '禁止套娃'
+            }
+          }
+        }
+      }
+    }
+    console.log(getValueByPath(o, 'a.b.c'));
+    console.log(getValueByPath(o, 'a.b.c.d.e'));
+  </script>
+</body>
+</html>
