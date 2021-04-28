@@ -15,11 +15,10 @@
       </div>
     </div>
     <div>{{name}}</div>
-    <div>{{message}}</div>
+    <div>{{age}}</div>
   </div>
 
   <script>
-    console.log(root);
 
     /**
      * 步骤拆解
@@ -29,6 +28,14 @@
      *    4.放到页面中
      */
     let regkuohao = /\{\{(.+?)\}\}/g;
+
+    // let text = '{{123}}_{{456}}';
+    // text.replace(regkuohao, function(_, g1) {
+    //   console.log(_, g1);
+    //   return "-";
+    // })
+    // console.log(text);
+
     let tmpNode = document.querySelector('#root');
     let data = {
       name: 'mao',
@@ -45,15 +52,36 @@
         if (type === 3) {
           //  文本节点，可以判断里面是否有 {{}} 差值
           let txt = childNodes[i].nodeValue; //   该属性只有文本节点才有意义
-          tet.replace(regkuohao, function() {
+          txt = txt.replace(regkuohao, function(_, g) {
+            //  repalce使用正则匹配一次 函数就会被调用一次 
+            //  函数的第 0 个参数 表示匹配到的内容
+            //  函数的第 n 个参数 表示正则中的第 n 组
 
+            //  去除字符串两边的空白
+            let key = g.trim();
+            let value = data[key];
+            return value;
           })
+          //  注意：txt 现在和DOM没有关系
+          childNodes[i].nodeValue = txt;
         } else if (type === 1) {
           //  元素，通过递归判断是否有子元素 是否将其子元素 判断是有 {{}} 值
           compiler(childNodes[i], data);
         }
       }
     }
+    console.log(tmpNode);
+    let generteNode = tmpNode.cloneNode(true);
+    compiler(generteNode, data);
+    console.log(generteNode);
+    root.parentNode.replaceChild(generteNode, root);
+
+    /**
+     *  上面思路的问题
+     *  1.Vue 使用的虚拟 Dom
+     *  2.只考虑单属性 {{name}}  
+     *  3.代码没整合 
+     */
   </script>
 
 </body>
