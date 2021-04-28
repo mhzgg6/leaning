@@ -8,12 +8,12 @@
 </head>
 <body>
   <div id="root" title='标题' class="test">
-    <div>
+    <div class="a">
       <div>hello1</div>
-      <div>hello2</div>
+      <div title="ss">hello2</div>
       <div>hello2</div>
       <ul>
-        <li>1</li>
+        <li class="bb">1</li>
         <li>2</li>
         <li>3</li>
       </ul>
@@ -54,7 +54,7 @@
       if (nodeType === 1) {
         //  元素
         let { nodeName, attributes } = node;
-        let _attrObj = {nodeName, attributes};
+        let _attrObj = {};
         //  attributes { 0: id, 1: title, 2: class } ==> 所有属性的伪数组
         for (let i = 0; i < attributes.length; i ++) {// attributes[i] 属性节点 
           // attributes[i] => title="标题"    attributes[i].nodeName => 'title'
@@ -77,9 +77,27 @@
     console.log(obj);
 
     //  将 vNode 转化为真正的 DOM
-    function parseVNode() {
-      
+    function parseVNode(vnode) {
+      let nodeName = vnode.tag && vnode.tag.toLowerCase();
+      let { type, data } = vnode;
+      let _vnode = null;
+      if (type === 1) {
+        _vnode = document.createElement(nodeName);
+        Object.keys(data).forEach(key => {
+          _vnode.setAttribute(key, data[key]);
+        });
+
+        let childNodes = vnode.children;
+        childNodes.forEach((subvnode) => {
+          _vnode.appendChild(parseVNode(subvnode));
+        })
+        return _vnode;
+      } else if (type === 3) {
+        return document.createTextNode(vnode.value);
+      }
     }
+    let html = parseVNode(obj);
+    console.log(html);
   </script>
 </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //  普通函数
+    function add(x, y) {
+      return x + y;
+    }
+    //  柯里化
+    function curryingAdd(x) {
+      return function(y) {
+        return x + y;        
+      }
+    }
+    // let a = add(1, 2);
+    // let b = curryingAdd(1)(2);
+
+    /**
+     *  函数柯里化的好处 
+     */
+    //  1.参数复用
+    function check(reg, text) {
+      return reg.test(text);
+    }
+    function curryingCheck(reg) {
+      return function(text) {
+        return reg.test(text);
+      }
+    }
+
+    check(/\d+/g, 'test')       //false
+    check(/[a-z]+/g, 'test')    //true
+
+    var hasNumber = curryingCheck(/\d+/g);
+    hasNumber('test1')      // true
+    hasNumber('testtest')   // false
+    console.log(hasNumber );
+    console.log(hasNumber('testtest'));
+</script>
+</body>
+</html>
