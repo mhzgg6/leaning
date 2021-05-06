@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /**
+     * 响应式原理
+        Object.defineProperty(对象, '属性名', {
+          writeable,
+          configable,
+          enumerable: 控制属性是否可以被枚举,
+          set() {},
+          get() 
+        })
+    */
+
+    var o = {};
+
+    //  给 o 提供属性
+    o.name = 'mao';
+
+    //  等价于
+    // Object.defineProperty(o, 'age', {
+    //   writable: true,
+    //   configurable: true,
+    //   enumerable: true,
+    //   value: 19
+    // })
+
+    //  get / set
+    function defineReactive(target, key, val, enumerable) {
+      Object.defineProperty(o, 'gender', {
+        configurable: true,
+        enumerable: !!enumerable,
+        get() {
+          return val;
+        },
+        set(newVal) {
+          val = newVal;
+        }
+      })
+    }
+
+    Object.keys(o).forEach(item => {
+      defineReactive(o, item, o[item], true)
+    })
+  </script>
+</body>
+</html>

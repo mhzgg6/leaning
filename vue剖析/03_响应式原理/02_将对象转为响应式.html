@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //  除了递归还可以使用队列（深度优先转为广度优先）
+    let data = {
+      name: 'mao',
+      age: 18,
+      list: [
+        { name: '语文' },
+        { name: '数学' },
+        { name: '英语' },
+      ]
+    }
+
+    function defineReactive(target, key, value, enumerable) {
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        //  非数组的引用类型
+        reactify(value);  //  递归
+      }
+
+      Object.defineProperty(target, key, {
+        configurable: true,
+        enumerable: !!enumerable,
+        get() {
+          return value;
+        },
+        set(newVal) {
+          value = newVal;
+        }
+      })
+    }
+
+    //  将对象 o 响应化
+    function reactify(o) {
+      let keys = Object.keys(o);
+
+      for(let i = 0; i < keys.length; i ++) {
+        let key = keys[i];
+        let value = o[key];
+
+        //  判断值是否为 数组 / 引用类型
+        //  引用类型 用递归 
+        if (Array.isArray(value)) {
+          //  数组
+          for(let j = 0; j < value.length; j ++) {
+            reactify(value[j]);
+          }
+        } else {
+          //  对象或者值类型
+          defineReactive(o, key, value, true);
+        }
+
+      }
+    }
+
+    reactify(data);
+
+    
+  </script>
+</body>
+</html>
