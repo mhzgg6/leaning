@@ -23,3 +23,9 @@
 4. 调用临时的那个函数
 
 扩展数组的 push 和 pop 怎么处理呢？
+
+# 发布订阅模式
+
+  - 代理方法（app.name, app._data.name）
+  - 事件模型（node：event模块）
+  - vue中 Observer Watcher Dep

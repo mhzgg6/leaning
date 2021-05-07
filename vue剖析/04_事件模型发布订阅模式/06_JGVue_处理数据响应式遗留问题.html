@@ -61,7 +61,7 @@
           return value;
         },
         set(newVal) {
-          value = newVal;
+          value = reactify(newVal);
 
           //  模板刷新（现在是假的，只是演示）
           //  vue 实例  watcher 就不会有这个问题
@@ -93,8 +93,11 @@
 
       }
     }
+    
+    //  取代原来 reactify 方法  将对象转为响应式
+    function observer(obj) {
 
-
+    }
     
     /** 虚拟 DOM 构造函数 */
     class VNode {
@@ -250,6 +253,20 @@
         let realDom  = parseVNode(vnode);
         this._parent.replaceChild(realDom, document.querySelector('#root'));
         //  这个算法 每次会将页面中 DOM 全部替换
+      }
+
+      initData() {
+        //  遍历 this._data 的成员 将属性转换为响应式  将直接属性 代理到实例上 
+        let keys = Object.keys(this._data);
+
+        //  响应式化
+        for(let i = 0; i < keys.length; i ++) {
+          //  这里将 对象  this._data[keys[i]] 变成响应式的
+        }
+        //  代理
+        for(let i = 0; i < keys.length; i ++) {
+          //  将 this._data[keys[i]] 映射 到 this[keys[i]] 上
+        }
       }
     }
 
