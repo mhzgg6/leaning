@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //  数组修改原型方法
+    let ARRAY_METHOD = [
+      'push',
+      'pop',
+      'shift',
+      'unshift',
+      'reverse',
+      'sort',
+      'splice'
+    ];
+    let array_method = Object.create( Array.prototype );
+    ARRAY_METHOD.forEach((method) => {
+      array_method[method] = function () {
+        //  将数据进行响应式化
+        for(let i = 0; i < arguments.length; i ++) {
+          reactify(arguments[i]);
+        }
+
+        //  调用原来的方法
+        let res = Array.prototype[method].apply(this, arguments);
+        return res;
+      }
+    })
+
+    let data = {
+      name: 'mao',
+      age: 18,
+      list: [
+        { name: '语文' },
+        { name: '数学' },
+        { name: '英语' },
+      ]
+    }
+
+    function defineReactive(target, key, value, enumerable) {
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        //  非数组的引用类型
+        reactify(value);  //  递归
+      }
+
+      Object.defineProperty(target, key, {
+        configurable: true,
+        enumerable: !!enumerable,
+        get() {
+          return value;
+        },
+        set(newVal) {
+          value = newVal;
+        }
+      })
+    }
+
+    //  将对象 o 响应化
+    function reactify(o) {
+      let keys = Object.keys(o);
+
+      for(let i = 0; i < keys.length; i ++) {
+        let key = keys[i];
+        let value = o[key];
+
+        //  判断值是否为 数组 / 引用类型
+        //  引用类型 用递归 
+        if (Array.isArray(value)) {
+          //  数组
+          for(let j = 0; j < value.length; j ++) {
+            value.__proto__ = array_method;// 数组响应式
+            reactify(value[j]);
+          }
+        } else {
+          //  对象或者值类型
+          defineReactive(o, key, value, true);
+        }
+
+      }
+    }
+
+    reactify(data);
+  </script>
+</body>
+</html>
