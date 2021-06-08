@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <!-- 第一步：写模板 -->
+  <div id="root">
+    <p>{{name}}</p>
+    <p>{{message}}</p>
+  </div>
+
+  <script>
+    //  第二部： 创建 vue 实例
+    let app = new Vue({
+      el: '#root',
+      data: {
+        name: 'mao',
+        message: 'haoshuai'
+      }
+    })
+
+    //  第三步：挂载  （这种用法的挂载在 vue.js 中帮我们实现了）
+  </script>
+</body>
+</html>
