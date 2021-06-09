@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root" title="all">
+    <div title="a">
+      <div title="bb">1</div>
+      <div title="cc">2</div>
+      <div title="dd">3</div>
+      <ul>
+        <li>7</li>
+        <li>8</li>
+        <li>9s</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    /**
+     *   创建虚拟 Dom
+     *      <div /> => { tag: 'div' }
+     *      文本节点 => { tag: undefined, value: '文本节点' }
+     *      < title="1" class="c" /> => { tag: 'div', data: { title: '1', class: 'c' } }
+     *      <div><div /></div> => { tag: 'div', children: [{ tag: 'div' }}] }
+     */
+
+    class VNode{
+      constructor(tag, data, value, type) {
+        this.tag = tag && tag.toLowerCase();
+        this.data = data;
+        this.value = value;
+        this.type = type;
+        this.children = [];
+      }
+
+      appendChild(vnode) {
+        this.children.push(vnode);
+      }
+    }
+
+    /**
+     *  使用递归 来遍历 Dom 元素，生成虚拟 Dom
+     *  Vue 中源码使用的栈结构，使用栈存储，父元素来实现递归生成 
+     */
+    function getVNode(node) {
+      let nodeType = node.nodeType;
+      let _vnode = null;
+      if (nodeType === 1) {// 元素
+        let nodeName = node.nodeName;
+        let attrs = node.attributes;
+        let _attrObj = {};
+        for (let i = 0; i < attrs.length; i ++) {
+          _attrObj[attrs[i].nodeName] = attrs[i].nodeValue;
+        }
+        // console.log(_attrObj); { id: 'root', title: 'all' }
+        _vnode = new VNode(nodeName, _attrObj, undefined, nodeType);
+
+        //  子元素
+        let childNodes = node.childNodes;
+        for(let i = 0; i < childNodes.length; i ++) {
+          _vnode.appendChild( getVNode(childNodes[i]) );//  递归
+        }
+      } else if (nodeType === 3) {
+        _vnode = new VNode(undefined, undefined, node.nodeValue, nodeType);
+      }
+      return _vnode;
+      //  还可能存在 注释节点
+    }
+    let tempNode = document.getElementById('root');
+    let virtualDom = getVNode(tempNode);
+
+    //  将 vNode 转为真正的 Dom
+    function parseVNode(vnode) {
+      let nodeType = vnode.type;
+      let realDom = null;
+
+      if (nodeType === 1) {// 元素
+        let data = vnode.data;
+        realDom = document.createElement(vnode.tag);
+
+        (Object.keys(data) || []).forEach(item => {
+          realDom.setAttribute(item, data[item]);
+        })
+
+        //  子元素
+        let children = vnode.children;
+        children.forEach(subvnode => {
+          realDom.appendChild(parseVNode(subvnode));
+        })
+      } else if (nodeType === 3) {
+        return document.createTextNode(vnode.value);
+      }
+      return realDom;
+    }
+    let a = parseVNode(virtualDom);
+  </script>
+</body>
+</html>
