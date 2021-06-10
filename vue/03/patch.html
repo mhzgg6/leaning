@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+     *  vue 本质上是使用 HTML 的字符串作为模板的, 将字符串的 模板 转为 AST, 再转为 VNode
+     *    - 模板 -> AST
+     *    - AST -> VNode
+     *    - VNode -> DOm
+     * 
+     *  哪一个阶段最消耗性能？
+     *    最消耗性能的是字符串解析 ( 模板 -> AST )
+     */ 
+    
+    // 例子: let s = "1 + 2 * (3 + 4 * (5 + 6))"
+    // 写一个程序，解析这个表达式，得到结果 （一般化）
+    // 我们一般会将这个表达式转化为 "波兰式" 表达式，然后使用栈结构来运算
+
+    // 在 Vue 中每一个标签可以是真正的 HTML 标签, 也可以是自定义组件, 问怎么区分?
+    // 在 Vue 源码中其实将所有可用的 HTML 标签存起来
+    // 假设这里是考虑几个标签
+
+    let tags = 'div,p,a,img,ul,li'.split(',');
+
+    function isHTMLTag(tagName) {
+      tagName = tagName.toLowerCase();
+      if (tags.indexOf(tagName) > -1) return true;
+      return false;
+    }
+    //  如果有 6 种内置标签，而模板中有 10 个标签需要判断，那么就需要执行 60 次循环
+    //  
+  </script>
+</body>
+</html>
