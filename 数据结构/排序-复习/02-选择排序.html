@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /**
+     *  选择排序从数组的开头开始，将第一个元素和其他元素进行比较
+     *  检查完所有元素后最小的元素会被放在数组的第一个位置
+     *  然后从第二个元素开始继续
+     *  这个过程一直进行到数组的倒数第二个位置
+     */
+    function selectionSort(arr) {
+      const len = arr.length;
+      let minIndex;
+      let temp;
+      for(let i = 0; i < len - 1; i ++) {
+        minIndex = i;
+        for(let j = i + 1; j < len; j ++) {
+          if (arr[j] < arr[minIndex]) {
+            minIndex = j; //  保存最小数的索引
+          }
+        }
+        temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+      }
+      return arr;
+    }
+
+    let arr = [ 2, 5, 4];
+    let newArr = selectionSort(arr);
+    console.log(newArr);
+  </script>
+</body>
+</html>
