@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /**
+     *  选择排序从数组的开头开始，将第一个元素和其他元素进行比较
+     *  检查完所有元素后最小的元素会被放在数组的第一个位置
+     *  然后从第二个元素开始继续
+     *  这个过程一直进行到数组的倒数第二个位置
+     */
+    function insertionSort(arr) {
+      const len = arr.length;
+      let prevIndex;
+      let current;
+      for (let i = 1; i < len; i ++) {
+        prevIndex = i - 1;
+        current = arr[i];
+        //  大于新元素 将该元素移到下一位置
+        while (prevIndex >= 0 && arr[prevIndex] > current) {
+          arr[prevIndex + 1] = arr[prevIndex];
+          prevIndex --;
+        }
+        arr[prevIndex + 1] = current;
+      }
+      return arr;
+    }
+
+    let arr = [ 2, 5, 4];
+    let newArr = insertionSort(arr);
+    console.log(newArr);
+  </script>
+</body>
+</html>

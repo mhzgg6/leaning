@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    {
+      let a = 1;
+      var b = 2;
+    }
+    // console.log(a);
+    // console.log(b);
+
+    var a = [];
+    for(var i = 0; i < 10; i ++) {
+      a[i] = function() {
+        console.log(i);
+      }
+    }
+    a[6]();
+
+    /* ------ 不存在变量提升 =>  即变量可以在声明之前使用，值为undefined */
+    /* // var 的情况
+    console.log(foo); // 输出undefined
+    var foo = 2;
+
+    // let 的情况
+    console.log(bar); // 报错ReferenceError
+    let bar = 2; */
+
+    /* ----- 暂时性死区 ----- */
+    var tmp = '123';
+    if (true) {
+      tmp = 'abc';
+      let tmp;   
+    }
+
+  </script>
+</body>
+</html>
