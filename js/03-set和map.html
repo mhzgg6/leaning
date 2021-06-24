@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // const set = new Set([1, 2, 3, 4, 4]);
+
+    //  数组去重
+    [...new Set([1, 2, 2, 3])]
+    //  字符串去重
+    const str = [...new Set('abbcc')].join(''); // {'a', 'b', 'c'} => 'abc'
+
+    //  不会发生类型的转换 5 和 '5' 是两个不同类型的值
+    //  Set 加入值认为 NaN 等于自身 精确相等运算符 认为 NaN 不等于自身
+    let set = new Set();
+    set.add(5);
+    set.add('5');
+    console.log(set);
+
+    //  属性 constructor size
+    //  方法 add(value) delete(value) has(value) clear()
+    //  遍历操作 keys() values() entries() forEach()
+
+    
+</script>
+</body>
+</html>
