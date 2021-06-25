@@ -19,20 +19,20 @@
       }
 
       bubbleSort() {
-        const len = this.array.length;
+        let len = this.array.length;
         for(let i = 0; i < len - 1; i ++) {
           for(let j = 0; j < len - 1 - i; j ++) {
             if (this.array[j] > this.array[j + 1]) {
-              let temp = this.array[j];
+              let tmp = this.array[j];
               this.array[j] = this.array[j + 1];
-              this.array[j + 1] = temp;
+              this.array[j + 1] = tmp;
             }
           }
         }
       }
 
       selectionSort() {
-        const len = this.array.length;
+        let len = this.array.length;
         for(let i = 0; i < len - 1; i ++) {
           let minIndex = i;
           for(let j = i + 1; j < len; j ++) {
@@ -40,9 +40,23 @@
               minIndex = j;
             }
           }
-          let temp = this.array[i];
+          let tmp = this.array[i];
           this.array[i] = this.array[minIndex];
-          this.array[minIndex] = temp;
+          this.array[minIndex] = tmp;
+        }
+      }
+      
+      insertionSort() {
+        let len = this.array.length;
+        for(let i = 1; i < len; i ++) {
+          let prevIndex = i - 1;
+          let current = this.array[i];
+          //  大于新元素，将该元素一道下一位置
+          while(prevIndex >= 0 && this.array[prevIndex] > current) {
+            this.array[prevIndex + 1] = this.array[prevIndex];
+            prevIndex --;
+          }
+          this.array[prevIndex + 1] = current;
         }
       }
 
@@ -55,7 +69,8 @@
     a.push(1);
     console.log(a.array)
     // a.bubbleSort();
-    a.selectionSort();
+    // a.selectionSort();
+    a.insertionSort();
     console.log(a.array)
   </script>
 </body>
