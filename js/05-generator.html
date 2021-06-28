@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function* hello() {
+      yield 'hello';
+      yield 'world';
+      return 'ending';
+    }
+    var hw = hello();
+    //  next 返回对象, 它的 value 就是当前 yield 表达式的值
+    //                     done 的属性值 false, 表示遍历还没有结束
+    let val = hw.next(); //  {value: "hello", done: false}
+    let val1 = hw.next();//  {value: "world", done: false}
+    let val2 = hw.next();//  {value: "ending", done: true}
+    let val3 = hw.next();//  {value: "undefined", done: true}
+    console.log(val3);
+  </script>
+</body>
+</html>
