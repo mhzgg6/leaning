@@ -2,7 +2,7 @@
   <div>
     <h3>具有数据校验功能的表单组件</h3>
 
-    <i-form :model="formValidate" :rules="ruleValidate">
+    <i-form ref="form" :model="formValidate" :rules="ruleValidate">
       <i-form-item label="用户名" prop="name">
         <i-input v-model="formValidate.name"></i-input>
       </i-form-item>
@@ -10,7 +10,9 @@
         <i-input v-model="formValidate.mail"></i-input>
       </i-form-item>
     </i-form>
-
+    <div>
+      <button @click="handleSubmit">提交验证</button>
+    </div>
   </div>
 </template>
 
@@ -45,7 +47,17 @@ export default {
   computed: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    handleSubmit() {
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          window.alert('提交成功');
+        } else {
+          window.alert('表单校验失败');
+        }
+      })
+    }
+  },
 };
 </script>
 <style lang="less" scoped>

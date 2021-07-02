@@ -17,7 +17,6 @@ import TestB from '@/components/TestB.vue'
 import Emitter from "../mixins/emitter"
 
 export default {
-  name: 'Home',
   provide: {
     name: 'Mao'
   },
