@@ -14,7 +14,12 @@ const routes = [
     path: '/form',
     name: 'Form',
     component: () => import('../views/form')
-  }
+  },
+  {
+    path: '/find',
+    name: 'componentA',
+    component: () => import('../views/findComponent')
+  },
 ]
 
 const router = new VueRouter({

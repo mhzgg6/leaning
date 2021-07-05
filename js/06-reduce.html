@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /**
+     *  arr.reduce(callback, [initialValue])
+     *    callback ()
+     *      1.  previousValue (上一次调用回调函数返回的值，或者提供的初始值 initialValue ) 
+     *      2.  currentValue  (数组当前被处理的元素)    
+     *      3.  index (当前元素在数组中的索引)    
+     *      4.  array (调用 reduce 的数组 )
+     */
+    // let arr = [1, 2, 3, 4];
+    // let sum = arr.reduce(function(prev, cur, index, arr) {
+    //   console.log(prev, cur, index);
+    //   //  1 2 1
+    //   //  3 3 2
+    //   //  6 4 3
+    //   return prev + cur;
+    // });
+    // console.log(arr, sum);  //  [1 2 3 4]  10
+
+    // let arr = [1, 2, 3, 4];
+    // let sum = arr.reduce(function(prev, cur, index, arr) {
+    //   console.log(prev, cur, index);
+    //   //  0 1 0
+    //   //  1 2 1
+    //   //  3 3 2
+    //   //  6 4 3
+    //   return prev + cur;
+    // }, 0);  //  设置初始值
+    // console.log(arr, sum);  //  [1 2 3 4]  10
+
+    //  简单用法 求和 乘积
+    let arr = [1, 2, 3, 4];
+    let sum = arr.reduce((x, y) => x + y);  //  10
+    let mul = arr.reduce((x, y) => x * y);  //  24
+    console.log(sum, mul);
+
+    //  高级用法
+
+    //  计算数组中每个元素出现的次数
+    let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+    let nameNum = names.reduce((pre, cur) => {
+      if (cur in pre) {
+        pre[cur] ++;
+      } else {
+        pre[cur] = 1;
+      }
+      return pre
+    }, {})  
+    console.log(nameNum, '计算数组中每个元素出现的次数');
+
+    //  数组去重
+    let arr1 = [1,2,3,4,4,1];
+    let newArr1 = arr1.reduce((pre, cur) => {
+      if ( !pre.includes(cur) ) {
+        return pre.concat(cur)
+      } else {
+        return pre
+      }
+    }, [])
+    console.log(newArr1, '数组去重');
+
+    //  将二维数组转化为一维
+    let arr2 = [[0, 1], [2, 3], [4, 5]]
+    let newArr2 = arr2.reduce((pre,cur)=>{
+      return pre.concat(cur)
+    },[])
+    console.log(newArr2, '将二维数组转化为一维');
+
+    //  将多维数组 转为一维
+    let arr3 = [[0, 1], [2, 3], [4,[5,6,7]]];
+    let newArr3 = function(arr3) {
+      return arr3.reduce((pre, cur) => pre.concat( Array.isArray(cur) ? newArr3(cur) : cur ), [])
+    }
+    console.log(arr3, '将多维数组 转为一维');
+  </script>
+</body>
+</html>
