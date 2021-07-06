@@ -44,4 +44,23 @@ function findComponentDownward(context, componentName) {
   return children;
 }
 
-export { findComponentUpward, findComponentsUpward, findComponentDownward };
+//  向下找到所有指定组件
+function findComponentsDownward(context, componentName) {
+  return context.$children.reduce((components, child) => {
+    if (child.$options.name == componentName) components.push(child);
+    const foundChilds = findComponentsDownward(child, componentName);
+    return components.concat(foundChilds);
+  }, [])
+}
+
+// 由一个组件，找到指定组件的兄弟组件
+function findBrothersComponents (context, componentName, exceptMe = true) {
+  let res = context.$parent.$children.filter(item => {
+    return item.$options.name === componentName;
+  });
+  let index = res.findIndex(item => item._uid === context._uid);
+  if (exceptMe) res.splice(index, 1);
+  return res;
+}
+
+export { findComponentUpward, findComponentsUpward, findComponentDownward, findComponentsDownward, findBrothersComponents };

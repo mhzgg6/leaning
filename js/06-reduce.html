@@ -80,7 +80,27 @@
     let newArr3 = function(arr3) {
       return arr3.reduce((pre, cur) => pre.concat( Array.isArray(cur) ? newArr3(cur) : cur ), [])
     }
-    console.log(arr3, '将多维数组 转为一维');
+    console.log(newArr3(arr3), '将多维数组 转为一维');
+
+    //  对象里的属性求和
+    var result = [
+      {
+          subject: 'math',
+          score: 10
+      },
+      {
+          subject: 'chinese',
+          score: 20
+      },
+      {
+          subject: 'english',
+          score: 30
+      }
+    ];
+    let res = result.reduce((pre, cur) => {
+      return cur.score + pre;
+    }, 0)
+    console.log(res);
   </script>
 </body>
 </html>

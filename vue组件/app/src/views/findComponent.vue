@@ -9,7 +9,7 @@
 <script>
 import TestC from "../components/TestC.vue"
 import TestD from "../components/TestD.vue"
-import { findComponentDownward } from "../utils/assist"
+// import { findComponentDownward } from "../utils/assist"
 
 export default {
   name: 'componentA',
@@ -24,8 +24,8 @@ export default {
   computed: {},
   created() {},
   mounted() {
-    const tmp = findComponentDownward(this, 'TestD');
-    console.log(tmp);
+    // const tmp = findComponentDownward(this, 'TestD');
+    // console.log(tmp);
   },
   methods: {},
 };

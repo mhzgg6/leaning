@@ -1,13 +1,9 @@
 <template>
-  <div class="test-c">
-    cccccc
-  </div>
+  <div class="wrapper"></div>
 </template>
 
 <script>
-import { findBrothersComponents } from "../utils/assist"
 export default {
-  name: 'TestC',
   props: {},
   components: {},
   data() {
@@ -17,12 +13,10 @@ export default {
   watch: {},
   computed: {},
   created() {},
-  mounted() {
-    const tem = findBrothersComponents(this, 'TestC', false);
-    console.log(tem)
-  },
+  mounted() {},
   methods: {},
 };
 </script>
 <style lang="less" scoped>
+// .wrapper{}
 </style>

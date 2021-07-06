@@ -20,6 +20,11 @@ const routes = [
     name: 'componentA',
     component: () => import('../views/findComponent')
   },
+  {
+    path: '/checkbox',
+    name: 'Checkbox',
+    component: () => import('../views/checkbox')
+  },
 ]
 
 const router = new VueRouter({
