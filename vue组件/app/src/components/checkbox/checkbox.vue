@@ -76,7 +76,7 @@ export default {
       this.group = true;
     }
     if (this.group) {
-      this.parent.updateModel(true);
+      this.parent.updateModal(true);
     } else {
       this.updateModel();
     }
