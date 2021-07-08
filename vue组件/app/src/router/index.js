@@ -25,6 +25,11 @@ const routes = [
     name: 'Checkbox',
     component: () => import('../views/checkbox')
   },
+  {
+    path: '/alert',
+    name: 'Alert',
+    component: () => import('../views/alert')
+  },
 ]
 
 const router = new VueRouter({

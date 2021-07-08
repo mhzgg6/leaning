@@ -3,6 +3,9 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import Alert from "./components/alert/alert"
+
+Vue.prototype.$Alert = Alert;
 
 Vue.config.productionTip = false
 
