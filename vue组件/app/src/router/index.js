@@ -30,6 +30,16 @@ const routes = [
     name: 'Alert',
     component: () => import('../views/alert')
   },
+  {
+    path: '/table',
+    name: 'Table',
+    component: () => import('../views/table')
+  },
+  {
+    path: '/table-slot',
+    name: 'Table',
+    component: () => import('../views/table-slot')
+  },
 ]
 
 const router = new VueRouter({

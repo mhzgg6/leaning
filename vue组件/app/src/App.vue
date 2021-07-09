@@ -4,18 +4,18 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <render-c @click.native="nativeClick" @on-click-button="clickButton"></render-c>
+    <!-- <render-c @click.native="nativeClick" @on-click-button="clickButton"></render-c> -->
     <router-view/>
   </div>
 </template>
 
 <script>
-import renderC from "./components/render/index.vue"
+// import renderC from "./components/render/index.vue"
 
 export default {
   name: 'app',
   components: {
-    renderC
+    // renderC
   },
   methods: {
     nativeClick() {
