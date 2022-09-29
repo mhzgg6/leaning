@@ -97,3 +97,32 @@ class B extends A implements PersonClass,PersonClass1 {
   set() {}
 }
 
+//  抽象类
+//  把抽象类作为一个基类 通过继承一个派生类去事项基类的方法
+abstract class C {
+  public name: string
+  constructor (name: string) {
+    this.name = name
+  }
+  print(): string {
+    return this.name
+  }
+  abstract getName(): string
+}
+// new C()  抽象类无法被实例化
+class D extends C {
+  constructor() {
+    super('mhz')
+  }
+  setName(name: string): void {
+    this.name = name
+  }
+  getName(): string {
+    return this.name
+  }
+}
+let oD = new D();
+oD.setName('yyy')
+console.log(oD.getName());
+
+
