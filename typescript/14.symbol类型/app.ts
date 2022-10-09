@@ -29,3 +29,5 @@ for(let key in obj1) {
 }
 //  Object.key
 console.log(Object.keys(obj1));
+//  getOwnPropertyNames
+
