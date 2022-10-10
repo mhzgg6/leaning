@@ -25,9 +25,20 @@ let obj1 = {
 
 //  for in 
 for(let key in obj1) {
-  console.log(key)//  name value
+  console.log(key)//  name age
 }
 //  Object.key
-console.log(Object.keys(obj1));
+console.log(Object.keys(obj1));// ['name', 'age']
 //  getOwnPropertyNames
+console.log(Object.getOwnPropertyNames(obj1));//['name', 'age']
+//  JSON.stringify
+console.log(JSON.stringify(obj1));//{"name":"mhz","age":18}
+
+//  获取symbol属性
+//  1.拿到具体的symbol 属性 对象中有几个就会拿到
+console.log(Object.getOwnPropertySymbols(obj1));//[ Symbol(mhz), Symbol(yj) ]
+//  2.es6的Reflect拿到对象的所有属性
+console.log(Reflect.ownKeys(obj1));//[ 'name', 'age', Symbol(mhz), Symbol(yj) ]
+
+
 
