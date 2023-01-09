@@ -73,7 +73,26 @@ interface PersonClass2{
 
 class AA {
   name: string
-  constructor(name: string) {
+  constructor() {
     this.name = '123'
   }
 }
+
+class BB extends AA implements PersonClass, PersonClass2 {
+  age: number
+  constructor() {
+    super()
+    this.age = 123
+  }
+  get(type: boolean) {
+    return type
+  }
+  set() {
+
+  }
+}
+
+// abstract class CC {
+//   public name: string
+// }
+// new CC()
