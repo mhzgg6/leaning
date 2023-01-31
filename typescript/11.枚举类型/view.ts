@@ -49,3 +49,11 @@ let Mhz: H = {
   // red: Person.name
   red: 5
 }
+
+//  const 声明
+const enum View {
+  No = 'no',
+  Yes = 1
+}
+//  const 声明编译之后 常量
+console.log();
