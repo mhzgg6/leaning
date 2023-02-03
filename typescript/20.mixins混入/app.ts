@@ -107,8 +107,11 @@ class C implements A,B {
   getName: () => string
 }
 
-console.log(B.prototype);
 mixins(C, [A, B]) 
-function mixins(curClas, itemClas) {
-
+function mixins(curClas: any, itemClas: any[]) {
+  itemClas.forEach(item => {
+    Object.getOwnPropertyNames(item.prototype).forEach(name => {
+      curClas.prototype[name] = item.prototype[name]
+    })    
+  })
 }
