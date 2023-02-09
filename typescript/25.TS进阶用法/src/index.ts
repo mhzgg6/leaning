@@ -56,7 +56,7 @@ const fnc = (...args: Array<any>) => {
 }
 // o.on('abc', fnc)
 o.once('abc', fnc)
-// o.emit('abc', 'mhz', 1)
+o.emit('abc', 'mhz', 1)
 // o.emit('bc', 'mhz', 1)
 
 // o.off('abc', fnc)
