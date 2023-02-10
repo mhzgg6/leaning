@@ -2,7 +2,7 @@ const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: "./src/Partial & Pick/index.ts",
+  entry: "./src/Record & Readonly/index.ts",
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'index.js'
