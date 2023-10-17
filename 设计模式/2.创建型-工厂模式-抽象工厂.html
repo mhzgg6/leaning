@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>抽象工厂-理解开放封闭</title>
+</head>
+<body>
+  <script>
+  /** 简单工厂函数 */
+  // function Factory(name, age, career) {
+  //   let work
+  //   switch(career) {
+  //     case 'coder':
+  //       work =  ['写代码','写系分', '修Bug'] 
+  //       break
+  //     case 'product manager':
+  //       work = ['订会议室', '写PRD', '催更']
+  //       break
+  //     case 'boss':
+  //       work = ['喝茶', '看报', '见客户']
+  //       break
+  //   } 
+  //   return new User(name, age, career, work)
+  // }
+
+  /**
+   * 问题
+   *    把boss这个角色和普通员工塞进了一个工厂
+   *    boss和基层员工在职能上差别 权限 职能。。。
+   * 修改-基于简单工厂函数
+   *    修改Factory的函数体，增加管理层相关判断 但从功能来说没问题
+   *    延伸问题  公司不仅仅只有这几类人  还有外包  保安 
+   *             每多一个类别就去修改Factory函数体 
+   *             Factory变得异常庞大 出一个bug 导致整个函数崩坏
+   *             Factory的逻辑过于繁杂和混乱，不便于后续维护
+   * 总结-没有遵守开放封闭的原则
+  */
+
+  /** 抽象工厂模式 */
+
+  // 智能手机的基本组成是操作系统（OS）和硬件（HardWare）组成
+  class MobilePhoneFactory {
+    // 提供操作系统的接口
+    createOS(){
+      throw new Error("抽象工厂方法不允许直接调用，你需要将我重写！");
+    }
+    // 提供硬件的接口
+    createHardWare(){
+      throw new Error("抽象工厂方法不允许直接调用，你需要将我重写！");
+    }
+  }
+
+  // 定义操作系统这类产品的抽象产品类
+  class OS {
+    controlHardWare() {
+      throw new Error('抽象产品方法不允许直接调用，你需要将我重写！');
+    }
+  }
+
+  // 定义手机硬件这类产品的抽象产品类
+  class HardWare {
+    // 手机硬件的共性方法，这里提取了“根据命令运转”这个共性
+    operateByOrder() {
+      throw new Error('抽象产品方法不允许直接调用，你需要将我重写！');
+    }
+  }
+
+  // 定义具体操作系统的具体产品类
+  class AndroidOS extends OS {
+    controlHardWare() {
+      console.log('我会用安卓的方式去操作硬件')
+    }
+  }
+
+  class AppleOS extends OS {
+    controlHardWare() {
+      console.log('我会用🍎的方式去操作硬件')
+    }
+  }
+
+  // 定义具体硬件的具体产品类
+  class QualcommHardWare extends HardWare {
+    operateByOrder() {
+      console.log('我会用高通的方式去运转')
+    }
+  }
+
+  class MiWare extends HardWare {
+    operateByOrder() {
+      console.log('我会用小米的方式去运转')
+    }
+  }
+
+  // 具体工厂继承自抽象工厂
+  class FakeStarFactory extends MobilePhoneFactory {
+    createOS() {
+      // 提供安卓系统实例
+      return new AndroidOS()
+    }
+    createHardWare() {
+      // 提供高通硬件实例
+      return new QualcommHardWare()
+    }
+  }
+
+  class AppleFactory extends MobilePhoneFactory {
+    createOS() {
+      return new AppleOS()
+    }
+    createHardWare() {
+      return new MiWare()
+    }
+  }
+
+  const myPhone = new FakeStarFactory()
+  const myOs = myPhone.createOS()
+  const myHardWare = myPhone.createHardWare()
+  myOs.controlHardWare()
+  console.log(myPhone)
+
+  const myApple = new AppleFactory()
+  const myAppleOs = myApple.createOS()
+  const myAppleHardWare = myApple.createHardWare()
+  myAppleOs.controlHardWare()
+  console.log(myApple)
+
+  /**
+   * 抽象工厂-抽象类，它不能被用于生成具体实例，用于声明最终目标产品的共性
+   * 具体产品-用于生成产品族的一个具体的产品
+   * 抽象产品-抽象类，它不能被用于生成具体实例
+   * 具体产品-用于生成产品族里的一个具体的产品依赖的更细粒度的产品
+  */
+
+  </script>
+</body>
+</html>
