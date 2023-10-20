@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vuex的数据管理哲学</title>
+</head>
+<body>
+  <script>
+
+    /**
+     * 单例模式-保证一个类仅有一个实例，并提供一个访问它的全局访问点
+    */
+
+    class SingleDog {
+      show() {
+        console.log('我是一个单例对象');
+      }
+      // static getInstance() {
+        // if (!SingleDog.instance) {
+        //   SingleDog.instance = new SingleDog()
+        // }
+        // return SingleDog.instance
+      // }
+    }
+    SingleDog.getInstance = (function() {
+      let instance = null
+      return function() {
+        if (!instance) {
+          instance = new SingleDog()
+        }
+        return instance
+      }
+    })()
+    const a = SingleDog.getInstance()
+    const b = SingleDog.getInstance()
+    console.log(a === b)
+    console.log(SingleDog.getInstance())
+    // const s1 = new SingleDog()
+    // const s2 = new SingleDog()
+    // console.log(s1 === s2)
+
+    // 理解Vuex中的store
+
+    
+
+  </script>
+</body>
+</html>
