@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title> 
+</head>
+<style>
+  #modal {
+      height: 200px;
+      width: 200px;
+      line-height: 200px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid black;
+      text-align: center;
+  }
+</style>
+<body>
+
+  <button id='open'>点击打开</button>
+	<button id='close'>关闭弹窗</button>
+
+  <script>
+    /**
+     * 需求：
+     *      每个业务中按钮在点击后都弹出【您还未登录】的弹框
+    */
+
+    /**
+     * 迭代：
+     *      按钮发布上线后，过了几天太平日子。忽然有一天，产品经理找到你，
+     *      说这个弹窗提示还不够明显，我们应该在弹窗弹出后把按钮的文案改为“快去登录”，同时把按钮置灰。
+    */
+
+
+    const Modal = (function () {
+      let modal = null
+      return function () {
+        if (!modal) {
+          modal = document.createElement('div')
+          modal.innerHTML = '您还未登录哦~'
+          modal.id = 'modal'
+          modal.style.display = 'none'
+          document.body.appendChild(modal)
+        }
+        return modal
+      }
+    })()
+
+    // 点击打开按钮展示模态框
+    document.getElementById('open').addEventListener('click', function() {
+      // 未点击则不创建modal实例，避免不必要的内存占用
+    	const modal = new Modal()
+    	modal.style.display = 'block'
+    })
+    
+    // 点击关闭按钮隐藏模态框
+    document.getElementById('close').addEventListener('click', function() {
+    	const modal = document.getElementById('modal')
+    	if(modal) {
+    	  modal.style.display = 'none'
+    	}
+    })
+
+  </script>
+</body>
+</html>

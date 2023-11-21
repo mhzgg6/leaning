@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Dog {
+      constructor(name, age) {
+        this.name = name
+        this.age = age
+      }
+      eat() {
+        console.log('骨头真好吃');
+      }
+    }
+    
+    /** 等价于 **/
+    
+    function Cow(name, age) {
+      this.name = name
+      this.age = age
+    }
+    Cow.prototype.eat = function () {
+      console.log('骨头真好吃');
+    }
+    const dog = new Dog('ss', 14)
+    const cow = new Cow('aa', 14)
+    console.log(dog);
+    console.log(cow);
+    console.log(dog.__proto__ === Dog.prototype, 'dog.__proto__ === Dog.prototype');//true
+
+
+
+  </script>
+</body>
+</html>
