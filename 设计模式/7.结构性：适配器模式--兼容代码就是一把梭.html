@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class HttpUtils {
+      // get
+      static get(url) {
+        return new Promise((resolve, reject) => {
+          fetch(url)
+          .then(response => response.json())
+          .then(result => {
+            resolve(resolve)
+          })
+          .catch(error => {
+            reject(error)
+          })
+        })
+      }
+
+      // post
+      static post(url, data) {
+        return new Promise((resolve, reject) => {
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: this.changeData(data)
+          })
+          .then(response => response.json())
+          .then(result => {
+            resolve(resolve)
+          })
+          .catch(error => {
+            reject(error)
+          })
+        })
+      }
+
+      static changeData(data) {
+        var prop,
+          str = ''
+        var i = 0
+        for (prop in obj) {
+          if (!prop) {
+            return
+          }
+          if (i == 0) {
+            str += prop + '=' + obj[prop]
+          } else {
+            str += '&' + prop + '=' + obj[prop]
+          }
+          i++
+        }
+        return str
+      }
+    }
+
+    /** 使用 HttpUtils */
+    // const URL = 'xxxxx'
+    // const params = {}
+    // 发起post请求
+    // const postResponse = await HttpUtils.post(URL,params) || {}
+    // 发起get请求
+    // const getResponse = await HttpUtils.get(URL) || {}
+
+    /**
+     * 真是个好用的方法库！老板看了李雷的 HttpUtils 库，喜上眉梢——原来老板也是个拜 fetch 教。
+     * 老板说李雷，咱们公司以后要做潮流公司了，写代码不再考虑兼容性，我希望你能把公司所有的业
+     * 务的网络请求都迁移到你这个 HttpUtils 上来，这样以后你只用维护这一个库了，也方便。李雷
+     * 一听，悲从中来——他是该公司的第 99 代员工，对远古时期的业务一无所知。而该公司第1代员工
+     * 封装的网络请求库，是基于 XMLHttpRequest 的，差不多长这样：
+    */
+    function Ajax(type, url, data, success, failed) {
+      var xhr = null;
+      if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest()
+      } else {
+        xhr = new ActiveXObject('Microsoft.XMLHTTP')
+      }
+
+      var type = type.toUpperCase()
+      if (type === 'GET') {
+        if (data) {
+          xhr.open('GET', url + '?' + data, true)
+        }
+        xhr.send()
+      } else if (type === 'POST') {
+        xhr.open('POST', url, true);
+        // 如果需要像 html 表单那样 POST 数据，使用 setRequestHeader() 来添加 http 头。
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // 发送post请求
+        xhr.send(data);
+      }
+
+      // 处理返回数据 
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            success(xhr.responseText)
+          } else {
+            if (failed) {
+              failed(xhr.status)
+            }
+          }
+        }
+      }
+    }
+
+    // 发送get请求
+    // Ajax('get', url地址, post入参, function(data){
+    //     // 成功的回调逻辑
+    // }, function(error){
+    //     // 失败的回调逻辑
+    // })
+
+    /**
+     * 李雷佛了 —— 不仅接口名不同，入参方式也不一样，这手动改要改到何年何日呢？
+     * 
+     * 还好李雷学过设计模式，他立刻联想到了专门为我们抹平差异的适配器模式。要把老代码迁移到新接口，
+     * 不一定要挨个儿去修改每一次的接口调用——正如我们想用 iPhoneX + 旧耳机听歌，不必挨个儿去改造
+     * 耳机一样，我们只需要在引入接口时进行一次适配，便可轻松地 cover 掉业务里可能会有的多次调用（
+     * 具体的解析在注释里）：
+    */
+
+    //  ajax适配器函数，入参与旧接口保持一致
+    async function AjaxAdapter(type, url, data, success, failed) {
+      const type = type.toUpperCase()
+      let result
+      try {
+        // 实际请求全部由新接口发起
+        if (type === 'GET') {
+          result = await HttpUtils.get(url) || {}
+        } else if (type === 'POST') {
+          result = await HttpUtils.post(url, data) || {}
+        }
+        //  假设请求成功的状态码是 1
+        result.statusCode === 1 && success ? success(result) : failed(result.statusCode)
+      } catch (error) {
+        // 捕捉网络错误
+        if(failed){
+          failed(error.statusCode);
+        }
+      }
+    }
+
+    // 用适配器适配旧的Ajax方法
+    async function Ajax(type, url, data, success, failed) {
+        await AjaxAdapter(type, url, data, success, failed)
+    }
+
+  </script>
+</body>
+</html>
