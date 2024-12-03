@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/math.chunk.js","mappings":"kIAAO,MAAMA,EAAMA,IAAIC,IACdA,EAAKC,QAAO,CAACC,EAAGC,IAAMD,EAAIC,GAAG,E","sources":["webpack://singlerntry/./src/js/math.js"],"sourcesContent":["export const sum = (...args) => {\r\n  return args.reduce((p, c) => p + c, 0);\r\n};"],"names":["sum","args","reduce","p","c"],"sourceRoot":""}

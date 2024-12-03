@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksinglerntry=self.webpackChunksinglerntry||[]).push([[600],{587:(e,s,n)=>{n.r(s),n.d(s,{sum:()=>r});const r=(...e)=>e.reduce(((e,s)=>e+s),0)}}]);
+//# sourceMappingURL=math.chunk.js.map
